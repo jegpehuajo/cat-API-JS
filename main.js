@@ -1,5 +1,5 @@
 const URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?limit=1&api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
-const URL_FAV = 'https://api.thecatapi.com/v1/favourites?limit=3&api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
+const URL_FAV = 'https://api.thecatapi.com/v1/favourites?api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
 
 const img = document.querySelector("img");
 const btnAleatorio = document.querySelector("#otro_gato");
@@ -22,23 +22,6 @@ async function getFav() {
     const data = await response.json();
     
     console.log(data);
-  } catch {
-    console.error("Error al obtener la imagen en favoritos.");
-  }
-}
-
-async function saveFav() {
-  const response = await fetch(URL_FAV, {
-    method:'POST',
-    headers: {
-      'Content-Type':'application/json',
-    },
-    body: JSON.stringify({
-      image_id:'12'
-    }),
-  });
-
-  const data = await response.json();
 
   if (response.status !== 200) {
     spanError.innerHTML = "Hay un error: " + response.status + data.message;
@@ -59,6 +42,21 @@ async function saveFav() {
       section.appendChild(article);
     });
   }
+  } catch {
+    console.error("Error al obtener la imagen en favoritos.");
+  }
+}
+
+async function saveFav() {
+  const response = await fetch(URL_FAV, {
+    method:'POST',
+    headers: {
+      'Content-Type':'application/json',
+    },
+    body: JSON.stringify({
+      image_id:'12'
+    }),
+  });
 }
 
 img.addEventListener("click",getImg);
