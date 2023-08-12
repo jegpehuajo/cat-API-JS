@@ -1,7 +1,8 @@
-const URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
-const URL_FAV = 'https://api.thecatapi.com/v1/favourites?api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
-const URL_FAV_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl`;
-const API_KEY = 'live_DY2e8NqCNT2B5zkxPa4rGuWuyIr5c3RP0iOYhn3plIVKNjbR7Z9u24PWTQXP9vhl';
+const URL_RANDOM = 'https://api.thecatapi.com/v1/images/search?api_key=live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM';
+const URL_FAV = 'https://api.thecatapi.com/v1/favourites?api_key=live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM';
+const URL_FAV_DELETE = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM`;
+const API_KEY = 'live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM';
+const URL_UPLOAD = 'https://api.thecatapi.com/v1/images/upload';
 
 const img = document.querySelector("img");
 const btnAleatorio = document.querySelector("#otro_gato");
@@ -90,6 +91,27 @@ async function deleteFav(id) {
   } else {
     console.log("Se elimino de favoritos.");
     getFav();
+  }
+}
+
+async function uploadImg() {
+  const form = document.getElementById('uploadForm');
+  const formData = new FormData(form);
+
+  const response = await fetch(URL_UPLOAD(), {
+    method:'POST',
+    headers: {
+      'Content-Type':'multipart/form-data',
+      'X-API-KEY': 'live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM',
+    },
+    body: formData,
+  })
+  const data = await response.json();
+  if ( res.status  !== 201 ){
+    spanError.innerText = "Hubo un error: " + res.status + " "  + data.message
+  } else {
+    console.log("Cargo correctamente la imagen.");
+    console.log({data});
   }
 }
 
