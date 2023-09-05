@@ -98,17 +98,18 @@ async function uploadImg() {
   const form = document.getElementById('uploadForm');
   const formData = new FormData(form);
 
-  const response = await fetch(URL_UPLOAD(), {
+  const response = await fetch(URL_UPLOAD, {
     method:'POST',
     headers: {
-      'Content-Type':'multipart/form-data',
+      //'Content-Type':'multipart/form-data',
       'X-API-KEY': 'live_gNZmKpyklLz3kIQ16bcJFcwiDq21cJVpjLI96FXF5tXQNe7VHnG6LNv0vSgGPSTM',
     },
     body: formData,
+    //body: JSON.stringify
   })
   const data = await response.json();
-  if ( res.status  !== 201 ){
-    spanError.innerText = "Hubo un error: " + res.status + " "  + data.message
+  if ( response.status  !== 201 ){
+    spanError.innerText = "Hubo un error: " + response.status + " "  + data.message
   } else {
     console.log("Cargo correctamente la imagen.");
     console.log({data});
